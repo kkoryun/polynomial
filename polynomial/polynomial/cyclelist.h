@@ -30,18 +30,14 @@ public:
 			monom * copycur = new monom(*cur);
 			result.addMonom(copycur);
 		}
-
+		return result;
 	}
 	cyclelist operator- (const cyclelist & tmp) {
 
 		cyclelist result = tmp * (-1) ;
+		result = result +  *this;
 
-		monom * cur = first->getNext();
-		while (cur != first)
-		{
-			monom * copycur = new monom(*cur);
-			result.addMonom(copycur);
-		}
+		return result;
 
 	}
 

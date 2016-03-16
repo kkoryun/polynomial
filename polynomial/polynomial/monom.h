@@ -16,11 +16,9 @@ public:
 	monom(int _a = 0, int _mem = -1) {};
 	monom(string _str, int maxSt = 10, int nx = 10)
 	{
-		int *pow;
-		pow = new int[nx];
+		int * pow = new int[nx];
 
-		string *variable;
-		variable = new string[nx];
+		string * variable = new string[nx];
 
 		for (int i = 0; i < nx; i++)
 		{
@@ -180,7 +178,22 @@ public:
 	int getA() { return a; }
 	int getSv(){ return sv;}
 	monom * getNext() { return next; }
+	monom multipli(monom * tmp, int maxst) {
 
+		monom result;
+		int a = 0, b = 0;
+		int sva = sv, svb = tmp->getSv();
+		while (sva != 0 || svb != 0) {
+			a = sva % maxst;
+			b = svb% maxst;
+			if ((a + b) >= maxst) return result;
+			sva = sva / maxst;
+			svb = svb / maxst;
+		}
+		result.a = a * tmp->a;
+		result.sv = sv + tmp->sv;
+		return result;
+	}
 	
 
 };
