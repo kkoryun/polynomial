@@ -3,7 +3,7 @@
 using namespace std;
 class monom
 {
-private: 
+protected: 
 	int a;
 	int sv;
 	monom * next;
@@ -33,57 +33,57 @@ public:
 			{
 				variable[i] = "x" + to_string(i);
 			}
-			int l = st.find(variable[i], 0);
-			st.erase(l, variable[i].length());
-			if (st[l] == '^')
+			int l = _str.find(variable[i], 0);
+			_str.erase(l, variable[i].length());
+			if (_str[l] == '^')
 			{
-				st.erase(l, 1);
+				_str.erase(l, 1);
 				string h = "";
-				h = h + st[l];
+				h = h + _str[l];
 				pow[i] = stoi(h);
-				st.erase(l, 1);
+				_str.erase(l, 1);
 			}
 			else
 			{
 				if (i == 0)
 				{
-					if (st[l] == 'x')
+					if (_str[l] == 'x')
 					{
 						pow[i] = 1;
 					}
 					else
 					{
 						pow[i] = 1;
-						st.erase(l, 1);
+						_str.erase(l, 1);
 					}
 				}
 				else
 				{
-					//st.erase(l, 2);
+					//_strerase(l, 2);
 					string p = "";
 
-					while ((l <= st.length()) && (st[l] >= '0') && (st[l] <= '9'))
+					while ((l <= _str.length()) && (_str[l] >= '0') && (st[l] <= '9'))
 					{
 						p = p + st[l];
-						st.erase(l, 1);
+						_str.erase(l, 1);
 					}
-					if (st.length() == 0)
+					if (_str.length() == 0)
 					{
 						pow[i] = 1;
 					}
 					else
 					{
-						st.erase(l, 1);
+						_strerase(l, 1);
 						string h = "";
 						h = h + st[l];
 						pow[i] = stoi(h);
-						st.erase(l, 1);
+						_strerase(l, 1);
 					}
 
 				}
 			}
 		}
-		if (st.length() == 0)
+		if (_str.length() == 0)
 		{
 			a = 1;
 		}
@@ -106,7 +106,6 @@ public:
 		next = 0;
 
 	};
-	
 	monom(monom & tmp) 
 	{ 
 		a = tmp.a;
@@ -142,7 +141,7 @@ public:
 					if (pow > 0)
 					{
 						st = "x" + to_string(nx - k) + st;
-						if (st.length() == 2)
+						if (_str.length() == 2)
 						{
 							if (pow > 1)
 							{
@@ -155,7 +154,7 @@ public:
 							{
 								string j = "";
 								j = j + "^" + to_string(pow);
-								st.insert(2, j);
+								_strinsert(2, j);
 							}
 						}
 					}
@@ -163,23 +162,25 @@ public:
 				}
 				if (st[1] == '0')
 				{
-					st.erase(1, 1);
+					_strerase(1, 1);
 				}
 				string f = "";
 				f = f + to_string(a);
-				st.insert(0, f);
+				_strinsert(0, f);
 			}
 		}
 
 		return st;
 	};
-	
+	~monom() { next = 0; }
+	void addMonom(monom * tmp) { next = tmp; }
 	void setNext(monom * _next) { next = _next; };
 	void setSv(int _sv) { sv = _sv; };
 	void setA(int _a) { a = _a; };
 	int getA() { return a; }
 	int getSv(){ return sv;}
+	monom * getNext() { return next; }
+
 	
-	~monom() { next = 0; }
 
 };
