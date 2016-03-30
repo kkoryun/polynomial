@@ -3,7 +3,8 @@
 using namespace std;
 class monom
 {
-protected: 
+
+protected:
 	int a;
 	int sv;
 	monom * next;
@@ -15,7 +16,7 @@ public:
 		sv = -1;
 		next = 0;
 	}
-	monom(int _a , int _sv ) 
+	monom(int _a, int _sv)
 	{
 		a = _a;
 		sv = _sv;
@@ -23,69 +24,32 @@ public:
 	monom(string _str, int maxSt = 10, int nx = 10)
 	{
 		int * pow = new int[nx];
-
-		string * variable = new string[nx];
-
+		string  variable = "";
 		for (int i = 0; i < nx; i++)
 		{
 			pow[i] = 0;
-			if (i == 0)
+			variable = "x" + to_string(i + 1);
+			int l = _str.find(variable, 0);
+			if (l >= 0)
 			{
-				variable[i] = "x";
-			}
-			else
-			{
-				variable[i] = "x" + to_string(i);
-			}
-			int l = _str.find(variable[i], 0);
-			_str.erase(l, variable[i].length());
-			if (_str[l] == '^')
-			{
-				_str.erase(l, 1);
-				string h = "";
-				h = h + _str[l];
-				pow[i] = stoi(h);
-				_str.erase(l, 1);
-			}
-			else
-			{
-				if (i == 0)
+				_str.erase(l, variable.length());
+				if (l<_str.length() && _str[l] == '^')
 				{
-					if (_str[l] == 'x')
+					_str.erase(l, 1);
+					string h = "";
+					while ((_str.length() > 0) && (l<_str.length()) && (_str[l] >= '0') && (_str[l] <= '9'))
 					{
-						pow[i] = 1;
-					}
-					else
-					{
-						pow[i] = 1;
+						h = h + _str[l];
 						_str.erase(l, 1);
 					}
+					pow[i] = stoi(h);
 				}
 				else
 				{
-					//_strerase(l, 2);
-					string p = "";
-
-					while ((l <= _str.length()) && (_str[l] >= '0') && (_str[l] <= '9'))
-					{
-						p = p + _str[l];
-						_str.erase(l, 1);
-					}
-					if (_str.length() == 0)
-					{
-						pow[i] = 1;
-					}
-					else
-					{
-						_str.erase(l, 1);
-						string h = "";
-						h = h + _str[l];
-						pow[i] = stoi(h);
-						_str.erase(l, 1);
-					}
-
+					pow[i] = 1;
 				}
 			}
+			
 		}
 		if (_str.length() == 0)
 		{
@@ -93,30 +57,32 @@ public:
 		}
 		else
 		{
-			if (_str == "-")
+			if (_str == "-") 
 			{
 				a = -1;
 			}
-			else
+			else 
 			{
 				a = stoi(_str);
 			}
 		}
+		
 		sv = 0;
-		for (int i = 0; i < nx; i++)
+		for (size_t i = 0; i < nx-1; i++)
 		{
-			sv = sv * 10 + pow[i];
+			sv = (sv + pow[i])* maxSt;
 		}
-		next = 0;
+		sv += pow[nx - 1];
 
 	};
-	monom(monom & tmp) 
-	{ 
+	monom(monom & tmp)
+	{
 		a = tmp.a;
 		sv = tmp.sv;
 		next = 0;
 	};
 #pragma endregion
+
 	monom & operator=(monom & tmp) {
 		a = tmp.a;
 		sv = tmp.sv;
@@ -149,7 +115,7 @@ public:
 	int getSv() { return sv; }
 	monom * getNext() { return next; }
 #pragma endregion
-	string getMonomStr(int maxSt = 10)
+	string getMonomStr(int maxSt = 10, int nx = 10)
 	{
 		string s;
 		s = "";
@@ -161,43 +127,45 @@ public:
 		{
 			if (a == -1)
 			{
-				s = "-" + toString(maxSt);
-
+				s = "-" + toString(maxSt , nx);
 			}
 			else
 			{
-				s = toString(maxSt);
+				s = toString(maxSt,nx);
+
 				if (a != 0) {
-					string f = to_string(a);
-					s.insert(0, f);
+					s = to_string(a) + s;
 				}
 				else
 				{
 					s = "0";
 				}
-			
+
 			}
 		}
 
 		return s;
 	};
-  
-	string toString(int maxSt=10) {
-		int k = 1 , _sv = sv;
-		string s="";
+
+	string toString(int maxSt = 10, int nx = 10) {
+		int k = 1, _sv = sv;
+		string s = "";
 		while (_sv != 0)
 		{
+			string st = "";
 			int pow = _sv % maxSt;
 			if (pow > 0)
 			{
-				s += "x" + to_string(k);
-				if (pow >= 1)
-					s += "^" + to_string(pow) + "*";
+				st = "x" + to_string(nx - k + 1);
+				if (pow > 1) 
+					st += "^" + to_string(pow);
+		
+				s = st + s;
+
 			}
 			k++;
 			_sv /= maxSt;
 		}
-		s.erase(s.length() - 1);
 		return s;
 	};
 	~monom() { next = 0; }
