@@ -86,7 +86,7 @@ public:
 		return result;
 
 	}
- 
+	cyclelist & operator=(const cyclelist & tmp) {};
 
 	~cyclelist();
 };
