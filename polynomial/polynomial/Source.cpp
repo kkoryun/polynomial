@@ -1,12 +1,20 @@
 #include"monom.h"
+#include"cyclelist.h"
 #include<iostream>
 void main() 
 {
-	monom * m1,*m2 , *m3 , *m4;
-	monom m("-35x4^5x3^2x1",10,4);
+	//monom * m1,*m2 , *m3 , *m4;
+	monom m1("-35x4^5x3^2x1",10,4);
+	monom m2("x4^5x3^2", 10, 4);
+	monom m3("x4^5x1", 10, 4);
+	
+	cyclelist c;
 
-	cout << m.getA() << " "<<m.getSv()<< endl;
-	cout << m.getMonomStr(10,4) << endl;
+	c.addMonom(&m1);
+	c.addMonom(&m2);
+	c.addMonom(&m3);
+	//cout << m1.getA() << " "<<m1.getSv()<< endl;
+	//cout << m1.getMonomStr(10,4) << endl;
 	//string s;
 	//m1 = new monom(10, 123);
 	//m2 = new monom(-1, 321);
@@ -31,6 +39,6 @@ void main()
 	//s = "";
 	//s = m4->getMonomStr(10);
 	//cout << s << "\n";
-
+	
 	system("pause");
 }

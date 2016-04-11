@@ -29,7 +29,7 @@ public:
 		else
 		{
 			cur->setA(cur->getA() + tmp->getA());
-			if (cur->getA == 0)
+			if (cur->getA() == 0)
 			{
 				prev->setNext(cur->getNext());
 				cur->setNext(0);
@@ -56,7 +56,7 @@ public:
 			p2 = p2->getNext();
 		}
 	};
-	cyclelist operator* (      int         tmp) {
+	cyclelist operator*  (      int         tmp) {
 		cyclelist result(*this);
 		monom * cur = first->getNext();
 		while (cur != first)
@@ -66,7 +66,7 @@ public:
 		}
 		return result;
 	}
-	cyclelist operator+ (const cyclelist & tmp) {
+	cyclelist operator+  (const cyclelist & tmp) {
 		
 		cyclelist result(tmp) ;
 
@@ -78,7 +78,7 @@ public:
 		}
 		return result;
 	}
-	cyclelist operator- (      cyclelist   tmp) {
+	cyclelist operator-  (      cyclelist   tmp) {
 
 		cyclelist result = tmp * (-1) ;
 		result = result +  *this;
@@ -88,6 +88,21 @@ public:
 	}
 	cyclelist & operator=(const cyclelist & tmp) {};
 
-	~cyclelist();
+	~cyclelist() {
+		monom * next = first, * cur = first;
+
+		while (first != next)
+		{
+			next = next->getNext();
+			delete cur;
+			cur = next;
+			
+		}
+		if (first == next)
+		{
+			first->setNext(0);
+			delete first;
+		}
+	};
 };
 

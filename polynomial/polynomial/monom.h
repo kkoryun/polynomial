@@ -114,17 +114,10 @@ public:
 	int getA() { return a; }
 	int getSv() { return sv; }
 	monom * getNext() { return next; }
-#pragma endregion
 	string getMonomStr(int maxSt = 10, int nx = 10)
 	{
-		string s;
-		s = "";
-		if (a == 1)
-		{
-			s = "";
-		}
-		else
-		{
+		string s = "";
+	
 			if (a == -1)
 			{
 				s = "-" + toString(maxSt , nx);
@@ -142,11 +135,11 @@ public:
 				}
 
 			}
-		}
+		
 
 		return s;
 	};
-
+#pragma endregion
 	string toString(int maxSt = 10, int nx = 10) {
 		int k = 1, _sv = sv;
 		string s = "";
@@ -168,5 +161,8 @@ public:
 		}
 		return s;
 	};
-	~monom() { next = 0; }
+	~monom() 
+	{ 
+		next = 0; 
+	}
 };
