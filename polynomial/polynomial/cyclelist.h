@@ -73,14 +73,14 @@ public:
 		return result;
 	}
 	cyclelist operator*  (const cyclelist & tmp) {
-		/*cyclelist result(*this);
+		cyclelist result(*this);
 		monom * cur = first->getNext();
 		while (cur != first)
 		{
 			cur->setA(cur->getA() * tmp);
 			cur = cur->getNext();
 		}
-		return result;*/
+		return result;
 	}
 	cyclelist operator+  (const cyclelist & tmp) {
 		
@@ -105,19 +105,38 @@ public:
 	cyclelist & operator=(const cyclelist & tmp) {};
 
 	~cyclelist() {
+		monom *p = first->getNext(), *last = first ,* next ;
+		while (p != first) {
+			p = p->getNext();
+			last = p;
+		}
+		last->setNext(0);
+		p = first;
+		while (p!=0)
+		{
+			last = p;
+			p = p->getNext();
+			delete last;
+		}
+		/*
 		monom * next = first->getNext(), * cur = first;
+
 		while (next != first)
 		{
-			cur->setNext(0);
-			delete cur;
-			cur = next;
-			next = next->getNext();
+		cur->setNext(0);
+		delete cur;
+		cur = next;
+		next = next->getNext();
 		}
 		if (next == first)
 		{
-			cur->setNext(0);
-			//delete cur;
+		cur->setNext(0);
+		//delete cur;
 		}
+		*/
+		
+		
+
 	};
 };
 
