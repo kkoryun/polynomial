@@ -49,18 +49,20 @@ public:
 
 	cyclelist(const cyclelist & tmp) 
 	{
-		/*monom * next = first, *cur1 = first , *cur2 = tmp.first ;
-		while (first != next)
+		first = new monom();
+		first->setNext(first);
+
+		monom *cur1 = tmp.first->getNext() , *cur2 = first ;
+		
+		while (cur1 != tmp.first)
 		{
-			next = next->getNext();
-			
-			cur = next;
+			monom *m = new monom(*cur1);
+			cur2->setNext(m);
+			cur1 = cur1->getNext();
+			cur2 = m;
 		}
-		if (first == next)
-		{
-			first->setNext(0);
-			delete first;
-		}*/
+		cur2->setNext(first);
+		
 	};
 	cyclelist operator*  (      int         tmp) {
 		cyclelist result(*this);
@@ -73,14 +75,14 @@ public:
 		return result;
 	}
 	cyclelist operator*  (const cyclelist & tmp) {
-		cyclelist result(*this);
+		/*cyclelist result(*this);
 		monom * cur = first->getNext();
 		while (cur != first)
 		{
 			cur->setA(cur->getA() * tmp);
 			cur = cur->getNext();
 		}
-		return result;
+		return result;*/
 	}
 	cyclelist operator+  (const cyclelist & tmp) {
 		
@@ -99,10 +101,24 @@ public:
 		/*cyclelist result = tmp.operator*(-1) ;
 		result = result +  *this;
 
-		return result;
-*/
+		return result;*/
+
 	}
-	cyclelist & operator=(const cyclelist & tmp) {};
+	cyclelist & operator=(const cyclelist & tmp) {
+	
+		monom *cur1 = tmp.first->getNext(), *cur2 = first;
+
+		while (cur1 != tmp.first)
+		{
+			monom *m = new monom(*cur1);
+			cur2->setNext(m);
+			cur1 = cur1->getNext();
+			cur2 = m;
+		}
+		cur2->setNext(first);
+
+		return(*this);
+	};
 
 	~cyclelist() {
 		monom *p = first->getNext(), *last = first ,* next ;

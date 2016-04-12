@@ -79,7 +79,7 @@ public:
 	{
 		a = tmp.a;
 		sv = tmp.sv;
-		next = 0;
+		next = tmp.next;
 	};
 #pragma endregion
 

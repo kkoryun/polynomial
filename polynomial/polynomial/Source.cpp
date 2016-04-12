@@ -1,5 +1,6 @@
 #include"monom.h"
 #include"cyclelist.h"
+#include<conio.h>
 #include<iostream>
 void main() 
 {
@@ -13,7 +14,11 @@ void main()
 	c.addMonom(&m1);
 	c.addMonom(&m2);
 	c.addMonom(&m3);
-	//cout << m1.getA() << " "<<m1.getSv()<< endl;
+
+	cyclelist c1, c2(c) ;
+	c1 = cyclelist(c);
+
+	cout << m1.getA() << " "<<m1.getSv()<< endl;
 	//cout << m1.getMonomStr(10,4) << endl;
 	//string s;
 	//m1 = new monom(10, 123);
@@ -40,5 +45,5 @@ void main()
 	//s = m4->getMonomStr(10);
 	//cout << s << "\n";
 	
-	//system("pause");
+	_getch();
 }
