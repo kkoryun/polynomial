@@ -33,11 +33,11 @@ public:
 			if (l >= 0)
 			{
 				_str.erase(l, variable.length());
-				if (l<_str.length() && _str[l] == '^')
+				if (l < _str.length() && _str[l] == '^')
 				{
 					_str.erase(l, 1);
 					string h = "";
-					while ((_str.length() > 0) && (l<_str.length()) && (_str[l] >= '0') && (_str[l] <= '9'))
+					while ((_str.length() > 0) && (l < _str.length()) && (_str[l] >= '0') && (_str[l] <= '9'))
 					{
 						h = h + _str[l];
 						_str.erase(l, 1);
@@ -49,7 +49,7 @@ public:
 					pow[i] = 1;
 				}
 			}
-			
+
 		}
 		if (_str.length() == 0)
 		{
@@ -57,18 +57,18 @@ public:
 		}
 		else
 		{
-			if (_str == "-") 
+			if (_str == "-")
 			{
 				a = -1;
 			}
-			else 
+			else
 			{
 				a = stoi(_str);
 			}
 		}
-		
+
 		sv = 0;
-		for (size_t i = 0; i < nx-1; i++)
+		for (size_t i = 0; i < nx - 1; i++)
 		{
 			sv = (sv + pow[i])* maxSt;
 		}
@@ -117,26 +117,21 @@ public:
 	string getMonomStr(int maxSt = 10, int nx = 10)
 	{
 		string s = "";
-	
-			if (a == -1)
-			{
-				s = "-" + toString(maxSt , nx);
+		if (a == -1)
+		{
+			s = "-" + toString(maxSt, nx);
+		}
+		else
+		{
+			s = toString(maxSt, nx);
+			if (a != 0) {
+				s = to_string(a) + s;
 			}
 			else
 			{
-				s = toString(maxSt,nx);
-
-				if (a != 0) {
-					s = to_string(a) + s;
-				}
-				else
-				{
-					s = "0";
-				}
-
+				s = "0";
 			}
-		
-
+		}
 		return s;
 	};
 #pragma endregion
@@ -150,9 +145,9 @@ public:
 			if (pow > 0)
 			{
 				st = "x" + to_string(nx - k + 1);
-				if (pow > 1) 
+				if (pow > 1)
 					st += "^" + to_string(pow);
-		
+
 				s = st + s;
 
 			}
@@ -161,8 +156,8 @@ public:
 		}
 		return s;
 	};
-	~monom() 
-	{ 
-		next = 0; 
+	~monom()
+	{
+		next = 0;
 	}
 };

@@ -11,8 +11,8 @@ void main()
 	cyclelist c;
 
 	c.addMonom(&m1);
-	c.addMonom(&m2);
-	c.addMonom(&m3);
+	//c.addMonom(&m2);
+	//c.addMonom(&m3);
 	//cout << m1.getA() << " "<<m1.getSv()<< endl;
 	//cout << m1.getMonomStr(10,4) << endl;
 	//string s;

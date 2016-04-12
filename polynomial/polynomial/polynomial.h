@@ -30,7 +30,7 @@ public:
 		polynomial copy(tmp);
 		copy.pol = pol + tmp.pol;
 	}
-	polynomial operator*(const polynomil & tmp)
+	polynomial operator*(const polynomial & tmp)
 	{
 		polynomial copy(*this);
 		copy.pol = copy.pol.polpol(tmp.pol, maxSt);
