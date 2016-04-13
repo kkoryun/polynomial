@@ -46,7 +46,6 @@ public:
 		monom *tmp = new monom(st, maxSt, nx);
 		addMonom(tmp);
 	};
-
 	cyclelist(const cyclelist & tmp) 
 	{
 		first = new monom();
@@ -66,10 +65,12 @@ public:
 	};
 	cyclelist operator*  (      int         tmp) {
 		cyclelist result(*this);
-		monom * cur = first->getNext();
-		while (cur != first)
+		
+		monom * cur = result.first->getNext();
+		
+		while (cur != result.first)
 		{
-			cur->setA(cur->getA()*tmp);
+			cur->setA(cur->getA() * tmp);
 			cur = cur->getNext();
 		}
 		return result;

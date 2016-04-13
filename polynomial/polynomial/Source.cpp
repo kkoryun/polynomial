@@ -18,6 +18,8 @@ void main()
 	cyclelist c1, c2(c) ;
 	c1 = cyclelist(c);
 
+	c = c * 5;
+
 	cout << m1.getA() << " "<<m1.getSv()<< endl;
 	//cout << m1.getMonomStr(10,4) << endl;
 	//string s;
