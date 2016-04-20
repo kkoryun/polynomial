@@ -65,25 +65,30 @@ public:
 	};
 	cyclelist operator*  (      int         tmp) {
 		cyclelist result(*this);
-		
 		monom * cur = result.first->getNext();
 		
-		while (cur != result.first)
-		{
+		while (cur != result.first){
 			cur->setA(cur->getA() * tmp);
 			cur = cur->getNext();
 		}
 		return result;
 	}
 	cyclelist operator*  (const cyclelist & tmp) {
-		/*cyclelist result(*this);
-		monom * cur = first->getNext();
-		while (cur != first)
+		cyclelist result;
+		monom * cur1 = first->getNext(), *cur2 = tmp.first->getNext(), *m;
+		while (cur1 != first)
 		{
-			cur->setA(cur->getA() * tmp);
-			cur = cur->getNext();
+			while (cur2 != tmp.first)
+			{
+				m = new monom();
+				*m = cur1->multipli(cur2,10);
+				result.addMonom(m);
+			    cur2 = cur2->getNext();
+			}
+			
+			cur1 = cur1->getNext();
 		}
-		return result;*/
+		return result;
 	}
 	cyclelist operator+  (const cyclelist & tmp) {
 		
@@ -97,12 +102,12 @@ public:
 		}
 		return result;
 	}
-	cyclelist operator-  (const cyclelist & tmp) {
+	cyclelist operator-  (      cyclelist & tmp) {
 
-		/*cyclelist result = tmp.operator*(-1) ;
+		cyclelist result = tmp * (-1) ;
 		result = result +  *this;
 
-		return result;*/
+		return result;
 
 	}
 	cyclelist & operator=(const cyclelist & tmp) {

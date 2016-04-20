@@ -27,8 +27,9 @@ public:
 	}
 	polynomial operator+(const polynomial & tmp)
 	{
-		polynomial copy(tmp);
+		polynomial copy;
 		copy.pol = pol + tmp.pol;
+		return copy;
 	}
 	polynomial operator*(const polynomial & tmp)
 	{

@@ -93,12 +93,13 @@ public:
 	monom multipli(monom * tmp, int maxst) {
 
 		monom result;
-		int a = 0, b = 0;
+		int A = 0, B = 0;
 		int sva = sv, svb = tmp->getSv();
-		while (sva != 0 || svb != 0) {
-			a = sva % maxst;
-			b = svb% maxst;
-			if ((a + b) >= maxst) return result;
+		while (sva != 0 || svb != 0) 
+		{
+			A   = sva % maxst;
+			B   = svb % maxst;
+			if ( (A + B) >= maxst ) return result;
 			sva = sva / maxst;
 			svb = svb / maxst;
 		}
