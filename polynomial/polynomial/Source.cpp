@@ -2,6 +2,7 @@
 #include"cyclelist.h"
 #include<conio.h>
 #include<iostream>
+#include"polynomial.h"
 void main() 
 {
 	//monom * m1,*m2 , *m3 , *m4;
@@ -20,7 +21,11 @@ void main()
 
 	c = c1 * 5;
 
-	cout << m4.getA() << " "<<m4.getSv()<< endl;
+	polynomial p("-x4^4x3^2+x4^5x1", 10, 10);
+	
+	string s ="polynom " + p.toString();
+	cout << s;
+//	cout << m4.getA() << " "<<m4.getSv()<< endl;
 	//cout << m1.getMonomStr(10,4) << endl;
 	//string s;
 	//m1 = new monom(10, 123);

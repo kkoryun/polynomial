@@ -125,7 +125,15 @@ public:
 
 		return(*this);
 	};
-
+	string toString(int maxSt =10, int nx =10) {
+		monom * cur=first->getNext();
+		string s = "";
+		while (cur != first) {
+			s += cur->toString(maxSt,nx);
+			cur = cur->getNext();
+		}
+		return s;
+	}
 	~cyclelist() {
 		monom *p = first->getNext(), *last = first ,* next ;
 		while (p != first) {

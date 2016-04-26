@@ -73,7 +73,7 @@ public:
 			sv = (sv + pow[i])* maxSt;
 		}
 		sv += pow[nx - 1];
-
+		delete pow;
 	};
 	monom(monom & tmp)
 	{
@@ -155,6 +155,11 @@ public:
 			k++;
 			_sv /= maxSt;
 		}
+		if (a == 0)  return s;
+		if (a == 1)  return s;
+		if (a == -1) return ("-" + s);
+		
+		s = to_string(a) + s;
 		return s;
 	};
 	~monom()
