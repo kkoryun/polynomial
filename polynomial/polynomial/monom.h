@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
 using namespace std;
+typedef long long int64;
 class monom
 {
 
 protected:
-	int a;
-	int sv;
+    int a;
+	int64 sv;
 	monom * next;
 
 public:
@@ -29,7 +30,7 @@ public:
 		{
 			pow[i] = 0;
 			variable = "x" + to_string(i + 1);
-			int l = _str.find(variable, 0);
+			int  l =_str.find(variable, 0);
 			if (l >= 0)
 			{
 				_str.erase(l, variable.length());
@@ -89,17 +90,16 @@ public:
 		next = tmp.next;
 		return *this;
 	};
-
 	monom multipli(monom * tmp, int maxst) {
 
 		monom result;
 		int A = 0, B = 0;
-		int sva = sv, svb = tmp->getSv();
+		int64 sva = sv, svb = tmp->getSv();
 		while (sva != 0 || svb != 0) 
 		{
 			A   = sva % maxst;
 			B   = svb % maxst;
-			if ( (A + B) >= maxst ) return result;
+			if ( (A + B) >= maxst ) return monom(0,-1);
 			sva = sva / maxst;
 			svb = svb / maxst;
 		}
@@ -107,13 +107,19 @@ public:
 		result.sv = sv + tmp->sv;
 		return result;
 	}
+	monom sum(monom * tmp) {
+		monom result;
+		if (sv == tmp->sv) result.a = a + tmp->a;
+
+		return monom(0,-1);
+	}
 #pragma region getset
 	void addMonom(monom * tmp) { next = tmp; }
 	void setNext(monom * _next) { next = _next; };
-	void setSv(int _sv) { sv = _sv; };
+	void setSv(int64 _sv) { sv = _sv; };
 	void setA(int _a) { a = _a; };
 	int getA() { return a; }
-	int getSv() { return sv; }
+	int64 getSv() { return sv; }
 	monom * getNext() { return next; }
 	string getMonomStr(int maxSt = 10, int nx = 10)
 	{
@@ -137,7 +143,7 @@ public:
 	};
 #pragma endregion
 	string toString(int maxSt = 10, int nx = 10) {
-		int k = 1, _sv = sv;
+		int64 k = 1, _sv = sv;
 		string s = "";
 		while (_sv != 0)
 		{
@@ -158,7 +164,6 @@ public:
 		if (a == 0)  return s;
 		if (a == 1)  return s;
 		if (a == -1) return ("-" + s);
-		
 		s = to_string(a) + s;
 		return s;
 	};

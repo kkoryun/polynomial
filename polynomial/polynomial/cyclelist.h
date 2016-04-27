@@ -5,14 +5,34 @@ class cyclelist : public monom
 
 {
 private: 
-	monom * first;
+	monom * first; 
 public:
+#pragma region constructors
 	cyclelist()
 	{
 		first = new monom();
 		first->setNext(first);
 	};
-	void addMonom(monom * tmp) 
+	cyclelist(const cyclelist & tmp)
+	{
+		first = new monom();
+		first->setNext(first);
+
+		monom *cur1 = tmp.first->getNext(), *cur2 = first;
+
+		while (cur1 != tmp.first)
+		{
+			monom *m = new monom(*cur1);
+			cur2->setNext(m);
+			cur1 = cur1->getNext();
+			cur2 = m;
+		}
+		cur2->setNext(first);
+
+	};
+#pragma endregion
+#pragma region add
+	void addMonom(monom * tmp)
 	{
 		monom * prev = first;
 		monom * cur = first->getNext();
@@ -37,7 +57,7 @@ public:
 			}
 		}
 	};
-	void addMonom(int sv, int a) 
+	void addMonom(int64 sv, int a)
 	{
 		monom * tmp = new monom(a, sv);
 		addMonom(tmp);
@@ -46,23 +66,10 @@ public:
 		monom *tmp = new monom(st, maxSt, nx);
 		addMonom(tmp);
 	};
-	cyclelist(const cyclelist & tmp) 
-	{
-		first = new monom();
-		first->setNext(first);
+#pragma endregion
+	
+#pragma region operators
 
-		monom *cur1 = tmp.first->getNext() , *cur2 = first ;
-		
-		while (cur1 != tmp.first)
-		{
-			monom *m = new monom(*cur1);
-			cur2->setNext(m);
-			cur1 = cur1->getNext();
-			cur2 = m;
-		}
-		cur2->setNext(first);
-		
-	};
 	cyclelist operator*  (      int         tmp) {
 		cyclelist result(*this);
 		monom * cur = result.first->getNext();
@@ -82,23 +89,30 @@ public:
 			{
 				m = new monom();
 				*m = cur1->multipli(cur2,10);
+				if (m->getSv()!=-1)
 				result.addMonom(m);
 			    cur2 = cur2->getNext();
 			}
-			
+			cur2 = tmp.first->getNext();
 			cur1 = cur1->getNext();
 		}
 		return result;
 	}
 	cyclelist operator+  (const cyclelist & tmp) {
 		
-		cyclelist result(tmp) ;
-
-		monom * cur = first->getNext();
-		while (cur != first)
+		cyclelist result;
+		monom * cur1 = first->getNext(), *cur2 = tmp.first->getNext(), *m;
+		while (cur1 != first)
 		{
-			monom * copycur = new monom(*cur);
-			result.addMonom(copycur);
+			m = new monom(*cur1);
+            result.addMonom(m);
+			cur1 = cur1->getNext();
+		}
+		while (cur2 != tmp.first)
+		{
+			m = new monom(*cur2);
+			result.addMonom(m);
+			cur2 = cur2->getNext();
 		}
 		return result;
 	}
@@ -106,7 +120,6 @@ public:
 
 		cyclelist result = tmp * (-1) ;
 		result = result +  *this;
-
 		return result;
 
 	}
@@ -125,11 +138,16 @@ public:
 
 		return(*this);
 	};
+
+#pragma endregion
+
+
 	string toString(int maxSt =10, int nx =10) {
 		monom * cur=first->getNext();
 		string s = "";
 		while (cur != first) {
-			s += cur->toString(maxSt,nx);
+			if (cur->getA() > 0) s += "+";
+			s +=cur->toString(maxSt,nx);
 			cur = cur->getNext();
 		}
 		return s;

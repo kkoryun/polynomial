@@ -1,4 +1,4 @@
-#include"monom.h"
+﻿#include"monom.h"
 #include"cyclelist.h"
 #include<conio.h>
 #include<iostream>
@@ -11,7 +11,7 @@ void main()
 	monom m3("x4^5x1", 10, 4);
 	monom m4;
 	cyclelist c;
-	m4 = m2.multipli(&m1, 10);
+//	m4 = m2.multipli(&m1, 10);
 	c.addMonom(&m1);
 	c.addMonom(&m2);
 	c.addMonom(&m3);
@@ -19,11 +19,17 @@ void main()
 	cyclelist c1, c2(c) ;
 	c1 = cyclelist(c);
 
-	c = c1 * 5;
-
-	polynomial p("-x4^4x3^2+x4^5x1", 10, 10);
+	//c = c1 * 5;
+    //c2 = c1 * c;
 	
+	polynomial p1("6x1^2x3^3-2x2^4x3^2"/*+5x2x5^3x7*/, 10, 10) , p2("x1^2x5^3-4x2^4x3^2"/*+3x2x5^4x7*/,10,10);
+	polynomial p;
+	p = p1*p2;
+	p = p1 + p2;
+	p = p1 - p2;
 	string s ="polynom " + p.toString();
+	cout << "6x1^2x3^3-2x2^4x3^2\n";
+	cout << "x1^2x5^3-4x2^4x3^2 \n";
 	cout << s;
 //	cout << m4.getA() << " "<<m4.getSv()<< endl;
 	//cout << m1.getMonomStr(10,4) << endl;
